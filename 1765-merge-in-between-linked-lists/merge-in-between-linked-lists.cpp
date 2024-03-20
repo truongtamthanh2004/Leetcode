@@ -14,12 +14,11 @@ public:
     {
         int n = b - a + 1;
         ListNode* tmp = list1;
-        int t = a;
 
-        while (t - 1 > 0) 
+        while (a - 1 > 0) 
         {
             tmp = tmp->next;
-            t--;
+            a--;
         }
 
         while (n > 0)
