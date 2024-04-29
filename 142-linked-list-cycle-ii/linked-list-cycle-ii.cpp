@@ -25,19 +25,17 @@ public:
         ListNode* slow = head;
         ListNode* fast = head;
 
-        // Floyd's Cycle Detection Algorithm
         while (fast && fast->next) {
             slow = slow->next;
             fast = fast->next->next;
 
             if (slow == fast) {
-                // Cycle detected, find the start point
                 slow = head;
                 while (slow != fast) {
                     slow = slow->next;
                     fast = fast->next;
                 }
-                return slow; // Start of the cycle
+                return slow;
             }
         }
 
