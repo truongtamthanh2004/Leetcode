@@ -53,7 +53,6 @@ public:
                 curr->next = tmp;
                 curr = tmp;
             }
-
         }
 
         return pHead;
