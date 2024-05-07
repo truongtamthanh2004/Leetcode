@@ -2,20 +2,20 @@ class Solution {
 public:
     vector<string> res;
 
-    void dfs(string cur, int d, int n)
+    void dfs(string cur, int open, int close, int n)
     {
         if (cur.length() == 2 * n)
         {
-            if (d == 0) res.push_back(cur);
+            if (open == close) res.push_back(cur);
             return;
         }
 
-        dfs(cur + "(", d + 1, n);
-        if (d - 1 >= 0) dfs(cur + ")", d - 1, n);
+        if (open < n) dfs(cur + "(", open + 1, close, n);
+        if (open > close) dfs(cur + ")", open, close + 1, n);
     }
 
     vector<string> generateParenthesis(int n) {
-        dfs("", 0, n);
+        dfs("", 0, 0, n);
         return res;
     }
 };
