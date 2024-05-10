@@ -14,9 +14,6 @@ public:
             return (double)a.first / a.second < (double)b.first / b.second;  // Return true if `a` should come before `b`
         });
 
-        vector<int> ans;
-        ans.push_back(fraction[k - 1].first);
-        ans.push_back(fraction[k - 1].second);
-        return ans;
+        return {fraction[k - 1].first, fraction[k - 1].second};
     }
 };
