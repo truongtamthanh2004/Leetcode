@@ -45,13 +45,10 @@
 //         return sum;
 //     }
 
-//     int calcSumDiaRemain(vector<vector<int>>& grid, int r, int c) {
+//     int calcSumDiaRemain(const vector<vector<int>>& grid, int r, int c) {
 //         int sum = 0;
-//         int i = r, j = c;
-//         while (i >= r - 2) {
-//             sum += grid[i][j];
-//             i--;
-//             j--;
+//         for (int i = 0; i < 3; ++i) {
+//             sum += grid[r + 2 - i][c + i];
 //         }
 //         return sum;
 //     }
@@ -75,7 +72,7 @@
 //         for (int i = 0; i < m - 2; i++) {
 //             for (int j = 0; j < n - 2; j++) {
 //                 if (isDistinct(grid, i, j) && calcSumRow(grid, i, j) > 0 
-//                     && calcSumRow(grid, i, j) == calcSumCol(grid, i, j) && calcSumDiaMain(grid, i, j) == calcSumDiaRemain(grid, i + 2, j + 2)) cnt++;
+//                     && calcSumRow(grid, i, j) == calcSumCol(grid, i, j) && calcSumDiaMain(grid, i, j) == calcSumDiaRemain(grid, i, j)) cnt++;
 //             }
 //         }
 //         return cnt;
@@ -84,22 +81,38 @@
 
 class Solution {
 public:
-    // Function to calculate the sum of a specific row
+    // Function to calculate the sum of rows in the 3x3 grid
     int calcSumRow(const vector<vector<int>>& grid, int r, int c) {
-        int sum = 0;
-        for (int j = c; j < c + 3; ++j) {
-            sum += grid[r][j];
+        int sumEqual = 0;
+        for (int i = r; i < r + 3; ++i) {
+            int sum = 0;
+            for (int j = c; j < c + 3; ++j) {
+                sum += grid[i][j];
+            }
+            if (i == r) {
+                sumEqual = sum;
+            } else if (sumEqual != sum) {
+                return 0;
+            }
         }
-        return sum;
+        return sumEqual;
     }
 
-    // Function to calculate the sum of a specific column
+    // Function to calculate the sum of columns in the 3x3 grid
     int calcSumCol(const vector<vector<int>>& grid, int r, int c) {
-        int sum = 0;
-        for (int i = r; i < r + 3; ++i) {
-            sum += grid[i][c];
+        int sumEqual = 0;
+        for (int j = c; j < c + 3; ++j) {
+            int sum = 0;
+            for (int i = r; i < r + 3; ++i) {
+                sum += grid[i][j];
+            }
+            if (j == c) {
+                sumEqual = sum;
+            } else if (sumEqual != sum) {
+                return 0;
+            }
         }
-        return sum;
+        return sumEqual;
     }
 
     // Function to calculate the sum of the main diagonal
@@ -111,7 +124,7 @@ public:
         return sum;
     }
 
-    // Function to calculate the sum of the other diagonal
+    // Function to calculate the sum of the secondary diagonal
     int calcSumDiaRemain(const vector<vector<int>>& grid, int r, int c) {
         int sum = 0;
         for (int i = 0; i < 3; ++i) {
@@ -120,12 +133,12 @@ public:
         return sum;
     }
 
-    // Function to check if all numbers in the 3x3 sub-grid are distinct and between 1 and 9
+    // Function to check if all numbers in the 3x3 grid are distinct and in the range 1-9
     bool isDistinct(const vector<vector<int>>& grid, int r, int c) {
-        unordered_set<int> seen;
+        unordered_map<int, int> mp;
         for (int i = r; i < r + 3; ++i) {
             for (int j = c; j < c + 3; ++j) {
-                if (grid[i][j] < 1 || grid[i][j] > 9 || !seen.insert(grid[i][j]).second) {
+                if (grid[i][j] < 1 || grid[i][j] > 9 || ++mp[grid[i][j]] > 1) {
                     return false;
                 }
             }
@@ -158,3 +171,4 @@ public:
         return count;
     }
 };
+
