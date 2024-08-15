@@ -23,7 +23,6 @@ public:
                 cntMoney[0]--;
             }
             if (i == 5) cntMoney[0]++;
-            cout << cntMoney[0] << " " << cntMoney[1] << endl;
         }
         return true;
     }
