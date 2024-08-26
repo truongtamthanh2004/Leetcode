@@ -20,15 +20,19 @@ public:
 
 class Solution {
 public:
-    void post(Node* root, vector<int> &v)
-    {
+    vector<int> ans;
+
+    void postOrder(Node* root) {
         if (!root) return;
-        for (auto tmp : root->children) post(tmp, v);
-        v.push_back(root->val);
+
+        for (auto i : root->children) postOrder(i);
+
+        ans.push_back(root->val);
     }
-    vector<int> postorder(Node* root) { 
-        vector<int> v;
-        post(root, v);
-        return v;
+
+    vector<int> postorder(Node* root) {
+        postOrder(root);
+
+        return ans;
     }
 };
