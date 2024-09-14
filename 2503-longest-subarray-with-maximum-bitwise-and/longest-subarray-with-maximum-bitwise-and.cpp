@@ -2,7 +2,7 @@ class Solution {
 public:
     int longestSubarray(vector<int>& nums) {
         const int n=nums.size();
-        int m=max_element(nums.begin(), nums.end())-nums.begin(); //Find index of max element
+        int m=max_element(nums.begin(), nums.end())-nums.begin(); //Find first index of max element
         int maxLen=0, x = nums[m];
 
         // Traverse from nums[m] on
