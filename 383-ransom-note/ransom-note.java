@@ -6,19 +6,19 @@ class Solution {
         for (Character i : ransomNote.toCharArray()) {
             if (map1.containsKey(i)) {
                 map1.put(i, map1.get(i) + 1);
+                continue;
             }
-            else {
-                map1.put(i, 1);
-            }
+            
+            map1.put(i, 1);
         }
 
         for (Character i : magazine.toCharArray()) {
             if (map2.containsKey(i)) {
                 map2.put(i, map2.get(i) + 1);
+                continue;
             }
-            else {
-                map2.put(i, 1);
-            }
+            
+            map2.put(i, 1);
         }
 
         for (Map.Entry<Character, Integer> entry : map1.entrySet()) {
