@@ -4,8 +4,8 @@ class Solution {
         int ans = 0;
 
         for (int i = 1; i < prices.length; i++) {
+            // Sell at day i-th
             ans = Math.max(ans, prices[i] - minPrice);
-
             minPrice = Math.min(minPrice, prices[i]);
         }
 
