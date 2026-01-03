@@ -13,18 +13,10 @@ class Solution {
             }
         }
 
-        k = 0;
         int sum = 0;
-        while (k < n) {
-            int i = 0;
-            while (i < 3 && k < n) {
-                if (i == 2) {
-                    k++;
-                    break;
-                }
-                
-                sum += cost[k++];
-                i++;
+        for (int i = 0; i < n; i++) {
+            if (i % 3 != 2) {
+                sum += cost[i];
             }
         }
 
