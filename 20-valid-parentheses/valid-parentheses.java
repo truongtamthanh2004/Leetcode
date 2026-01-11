@@ -9,7 +9,7 @@ class Solution {
                 continue;
             }
 
-            char peek = stack.isEmpty() ? 'a' : stack.peek();
+            char peek = stack.isEmpty() ? '_' : stack.peek();
             if (c == ')' && peek != '(') return false;
             if (c == ']' && peek != '[') return false;
             if (c == '}' && peek != '{') return false;
