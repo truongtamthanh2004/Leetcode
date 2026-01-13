@@ -1,7 +1,6 @@
 class Solution {
     int[] dx = new int[]{-1, 0, 1, 0};
     int[] dy = new int[]{0, 1, 0, -1};
-    int count = 1;
 
     public int maxAreaOfIsland(int[][] grid) {
         int m = grid.length, n = grid[0].length;
@@ -12,17 +11,17 @@ class Solution {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 0 || visited[i][j]) continue;
 
-                dfs(i, j, m, n, grid, visited);
+                int count = dfs(i, j, m, n, grid, visited);
                 res = Math.max(res, count);
-                count = 1;
             }
         }
 
         return res;
     }
 
-    private void dfs(int i, int j, int m, int n, int[][] grid, boolean[][] visited) {
+    private int dfs(int i, int j, int m, int n, int[][] grid, boolean[][] visited) {
         visited[i][j] = true;
+        int count = 1;
 
         for (int k = 0; k < 4; k++) {
             int x = i + dx[k];
@@ -30,9 +29,10 @@ class Solution {
 
             if (!isInside(x, y, m, n) || visited[x][y] || grid[x][y] == 0) continue;
 
-            dfs(x, y, m, n, grid, visited);
-            count++;
+            count += dfs(x, y, m, n, grid, visited);
         }
+
+        return count;
     }
 
     private boolean isInside(int x, int y, int m, int n) {
