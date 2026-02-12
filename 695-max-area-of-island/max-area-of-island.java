@@ -1,41 +1,41 @@
 class Solution {
-    int[] dx = new int[]{-1, 0, 1, 0};
-    int[] dy = new int[]{0, 1, 0, -1};
-
     public int maxAreaOfIsland(int[][] grid) {
-        int m = grid.length, n = grid[0].length;
-        int res = 0;
+        int m = grid.length;
+        int n = grid[0].length;
         boolean[][] visited = new boolean[m][n];
+        int ans = 0;
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 0 || visited[i][j]) continue;
-
-                int count = dfs(i, j, m, n, grid, visited);
-                res = Math.max(res, count);
+                if (visited[i][j] || grid[i][j] != 1) continue;
+                int area = dfs(i, j, grid, visited);
+                ans = Math.max(area, ans);
             }
         }
 
-        return res;
+        return ans;
     }
 
-    private int dfs(int i, int j, int m, int n, int[][] grid, boolean[][] visited) {
-        visited[i][j] = true;
-        int count = 1;
+    private int dfs(int r, int c, int[][] grid, boolean[][] visited) {
+        visited[r][c] = true;
+        int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        int area = 1;
 
-        for (int k = 0; k < 4; k++) {
-            int x = i + dx[k];
-            int y = j + dy[k];
+        for (int[] dir : dirs) {
+            int nr = r + dir[0];
+            int nc = c + dir[1];
 
-            if (!isInside(x, y, m, n) || visited[x][y] || grid[x][y] == 0) continue;
-
-            count += dfs(x, y, m, n, grid, visited);
+            if (isNotInside(nr, nc, grid) || visited[nr][nc] || grid[nr][nc] != 1) continue;
+            area += dfs(nr, nc, grid, visited);
         }
 
-        return count;
+        return area;
     }
 
-    private boolean isInside(int x, int y, int m, int n) {
-        return x >= 0 && x < m && y >= 0 && y < n;
+    private boolean isNotInside(int r, int c, int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+
+        return r < 0 || c < 0 || r >= m || c >= n;
     }
 }
