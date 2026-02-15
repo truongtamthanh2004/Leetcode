@@ -10,14 +10,15 @@
  */
 class Solution {
     public ListNode middleNode(ListNode head) {
-        if (head == null) return head; // not neccessary because the minimum length of linked list is 1
+        // Two pointers: Slow and Fast
+        ListNode slow = head;
+        ListNode fast = head;
 
-        ListNode i = head, j = head;
-        while (j != null && j.next != null) {
-            i = i.next;
-            j = j.next.next;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
         }
 
-        return i;
+        return slow;
     }
 }
